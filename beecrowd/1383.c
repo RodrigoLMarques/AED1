@@ -18,15 +18,13 @@ int main() {
   for (int i = 0; i < n; i++) {
     printf("Instancia %d\n", i + 1);
 
+    char* resposta = "SIM";
+
     if (validar(sudokus[i])) {
-      printf("SIM\n");
-    } else {
-      printf("NAO\n");
+      resposta = "NAO";
     }
 
-    if (i != n - 1) {
-      printf("\n");
-    }
+    printf("%s\n\n", resposta);
   }
 
   return 0;
