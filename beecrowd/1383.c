@@ -1,5 +1,5 @@
 #include <stdio.h>
- 
+
 int validar(int sudoku[9][9]);
 
 int main() { 
@@ -31,26 +31,25 @@ int main() {
 }
 
 int validar(int sudoku[9][9]) {
-  // Valida as linhas e colunas do Sudoku
+  // Valida as linhas do Sudoku
   for (int i = 0; i < 9; i++) {
-    int n, linhas[10] = { 0 };
+    int linhas[10] = { 0 };
     for (int j = 0; j < 9; j++) {
-      n = sudoku[i][j];
+      int n = sudoku[i][j];
+      if (n < 1 || n > 9) return 1;
       linhas[n]++;
-      if (linhas[n] > 1) {
-        return 0;
-      }
+      if (linhas[n] > 1) return 1;
     }
   }
 
+  // Valida as colunas do Sudoku
   for (int i = 0; i < 9; i++) {
     int colunas[10] = { 0 };
     for (int j = 0; j < 9; j++) {
       int n = sudoku[j][i];
+      if (n < 1 || n > 9) return 1;
       colunas[n]++;
-      if (colunas[n] > 1) {
-        return 0;
-      }
+      if (colunas[n] > 1) return 1;
     }
   }
 
@@ -69,16 +68,13 @@ int validar(int sudoku[9][9]) {
     for (int j = linha; j < linha + 3; j++) {
       for (int k = coluna; k < coluna + 3; k++) {
         int n = sudoku[j][k];
+        if (n < 1 || n > 9) return 1;
         bloco[n]++;
-        if (bloco[n] > 1) {
-          return 0;
-        }
+        if (bloco[n] > 1) return 1;
       }
     }
   }
 
   // Sudoku Válido
-  return 1;
+  return 0;
 }
-
-
