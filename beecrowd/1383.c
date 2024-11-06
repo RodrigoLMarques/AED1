@@ -1,3 +1,9 @@
+/* 
+  Nome: Rodrigo Lopes Marques
+  Matrícula: 180385
+  Exercício: 1383 - Sudoku
+*/
+
 #include <stdio.h>
 
 int validar(int sudoku[9][9]);
