@@ -22,6 +22,7 @@ typedef struct cell cell;
 cell* str_split(char *str, char* delim);
 void insert(char *str, cell *p);
 void remove_cell(cell *p);
+void remove_list(cell* list);
 void print_list(cell *list);
 void remove_duplicates(cell* list);
 void sort_alphabetic(cell *list);
@@ -33,8 +34,6 @@ int main() {
   scanf("%d", &n);
   getchar();
 
-  cell* results[n];
-
   for (int i = 0; i < n; i++) {
     fgets(line, MAX_LINE_SIZE, stdin);
     line[strcspn(line, "\n")] = '\0';
@@ -43,12 +42,8 @@ int main() {
 
     remove_duplicates(list);
     sort_alphabetic(list);
-
-    results[i] = list;
-  }
-
-  for (int i = 0; i < n; i++) {
-    print_list(results[i]);
+    print_list(list);
+    remove_list(list);
   }
 }
 
@@ -68,18 +63,27 @@ cell* str_split(char *str, char* delim) {
 }
 
 void insert(char *str, cell *p) {
-  cell *new;
-  new = (cell*) malloc(sizeof(cell));
-  strcpy(new->value, str);
-  new->next = p->next;
-  p->next = new;
+  cell *new_cell;
+  new_cell = (cell*) malloc(sizeof(cell));
+  strcpy(new_cell->value, str);
+  new_cell->next = p->next;
+  p->next = new_cell;
 }
 
 void remove_cell(cell *p) {
-  cell *trash;
-  trash = p->next;
-  p->next = trash->next;
-  free(trash);
+  cell *temp  = p->next;
+  p->next = temp->next;
+  free(temp);
+}
+
+void remove_list(cell* list) {
+  cell* p = list;
+
+  while(p != NULL){
+    cell* temp = p->next;
+    free(p); 
+    p = temp;
+  }
 }
 
 void print_list(cell *list) {
