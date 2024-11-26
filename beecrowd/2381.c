@@ -16,7 +16,6 @@ struct TList {
 typedef struct TList List;
 
 void insert(char *name, List **last);
-void print_list(List *list);
 char* sort_and_pick(List **list, int n, int pick);
 
 int main() {
@@ -42,18 +41,6 @@ void insert(char *name, List **last) {
   strcpy(newCell->name, name);
   (*last)->next = newCell;
   (*last) = newCell;
-}
-
-void print_list(List *list) {
-  for (List *p = list->next; p != NULL; p = p->next) {
-    printf("%s", p->name);
-
-    if (p->next == NULL) {
-      printf("\n");
-    } else {
-       printf(" ");
-    }
-  }
 }
 
 char* sort_and_pick(List **list, int n, int pick) {
