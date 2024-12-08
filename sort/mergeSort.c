@@ -2,55 +2,58 @@
 #include <stdlib.h>
 #include <time.h>
 
-void merge(int p, int q, int r, int v[]);
-void mergeSort(int p, int r, int v[]);
+void merge(int p, int q, int r, int arr[]);
+void mergeSort(int p, int r, int arr[]);
 int randomInteger(int low, int high);
+void printNumbers(int n, int *arr);
 
-int main() {
-  srand((unsigned)time(NULL));
-  int v[10];
+int main(int argc, char* argv[]) {
+  srand(time(NULL));
+  int n = atoi(argv[1]);
+  int arr[n];
   
-  for (int i = 0; i < 10; i++) v[i] = randomInteger(1, 10);
-  for (int i = 0; i < 10; i++) printf("%d ", v[i]);
-  printf("\n");
+  for (int i = 0; i < n; i++) arr[i] = randomInteger(1, n);
 
-  mergeSort(0, 10, v);
-
-  for (int i = 0; i < 10; i++) printf("%d ", v[i]);
-  printf("\n");
+  printNumbers(n, arr);
+  mergeSort(0, n, arr);
+  printNumbers(n, arr);
   
-
   return 0;
 }
 
-void merge(int p, int q, int r, int v[]) {
+void merge(int p, int q, int r, int arr[]) {
   int i, j, k, *w;
   w = malloc((r - p) * sizeof(int));
 
   i = p; j = q; k = 0;
   while (i < q && j < r) {
-    if (v[i] <= v[j]) w[k++] = v[i++];
-    else w[k++] = v[j++];
+    if (arr[i] <= arr[j]) w[k++] = arr[i++];
+    else w[k++] = arr[j++];
   }
 
-  while (i < q)  w[k++] = v[i++];
-  while (j < r) w[k++] = v[j++];
+  while (i < q)  w[k++] = arr[i++];
+  while (j < r) w[k++] = arr[j++];
 
-  for (i = p; i < r; i++) v[i] = w[i - p];
+  for (i = p; i < r; i++) arr[i] = w[i - p];
 
   free(w);
 }
 
-void mergeSort(int p, int r, int v[]) {
+void mergeSort(int p, int r, int arr[]) {
   if (p >= r - 1) return;
 
   int q = (p + r) / 2;
-  mergeSort(p, q, v);
-  mergeSort(q, r, v);
-  merge(p, q, r, v);
+  mergeSort(p, q, arr);
+  mergeSort(q, r, arr);
+  merge(p, q, r, arr);
   
 }
 
 int randomInteger(int low, int high) {
   return (rand() % (high - low + 1)) + low;
+}
+
+void printNumbers(int n, int *arr) {
+  for (int i = 0; i < n; i++) printf("%d ", arr[i]);
+  printf("\n");
 }
