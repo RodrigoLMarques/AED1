@@ -8,7 +8,7 @@ void mergeSort(int p, int r, int v[]);
 void quickSort(int p, int r, int v[]);
 
 int max = 400000;
-int step = 50000;
+int step = 20000;
 
 int main() {
   srand((unsigned)time(NULL));
@@ -67,7 +67,7 @@ void insertionSort(int arr[], int n) {
 
 void merge(int p, int q, int r, int v[]) {
   int i, j, k, *w;
-  w = malloc((r - p) * sizeof(int));
+  w = (int*) malloc((r - p) * sizeof(int));
 
   i = p; j = q; k = 0;
   while (i < q && j < r) {
