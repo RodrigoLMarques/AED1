@@ -1,3 +1,10 @@
+/* 
+  Nome: Rodrigo Lopes Marques
+  Matrícula: 180385
+  Exercício: 1855 - Mapa do Meistre
+  Observações: Usando matriz de adjacência
+*/
+
 #include <stdio.h>
 
 int isArrow(char c) {
@@ -47,15 +54,13 @@ int main() {
 
   int i = 0, j = 0, direction = 0, win = 0;
 
-  while (!pass[i][j] && !win) {
+  while (!pass[i][j]) {
     char c = map[i][j];
 
     if (isArrow(c)) {
       pass[i][j] = 1;
       direction = setDirection(c);
     }
-
-    // printf("c = %c, i = %d, j = %d, d = %d\n", c, i, j, direction);
 
     if (c == '*') {
       win = 1;

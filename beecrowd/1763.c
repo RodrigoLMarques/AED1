@@ -1,3 +1,10 @@
+/* 
+  Nome: Rodrigo Lopes Marques
+  Matrícula: 180385
+  Exercício: 1763 - Tradutor do Papai Noel
+  Observações: Usando lista
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -11,7 +18,6 @@ struct TList {
 typedef struct TList List;
 
 List* insert(char* key, char* value, List *last);
-void print_list(List *list);
 char* linear_search(char* key, List* list);
 void initList(List* last);
 
