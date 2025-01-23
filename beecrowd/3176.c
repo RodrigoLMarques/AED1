@@ -1,3 +1,10 @@
+/* 
+  Nome: Rodrigo Lopes Marques
+  Matrícula: 180385
+  Exercício: 3176 - Time de Duendes
+  Observações: Usando lista e bubble sort
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -15,9 +22,9 @@ void sort(List *list);
 void print_teams(List *head, int n);
 
 int main() {
-  List *list = (List*) malloc(sizeof(List));
-  list->next = NULL;
-  List *last = list; 
+  List *head = (List*) malloc(sizeof(List));
+  head->next = NULL;
+  List *last = head; 
   
   int n, age;
   char name[MAX_LENGTH];
@@ -29,8 +36,8 @@ int main() {
     last = insert(name, age, &last);
   }
 
-  sort(list);
-  print_teams(list, n);
+  sort(head);
+  print_teams(head, n);
   
   return 0;
 }
@@ -51,11 +58,11 @@ int isYoung(List* a, List*b) {
   return 0;
 }
 
-void sort(List *list) {
+void sort(List *head) {
   char temp_name[MAX_LENGTH];
   int temp_age;
 
-  for (List* p = list->next; p != NULL; p = p->next) {
+  for (List* p = head->next; p != NULL; p = p->next) {
     for (List* q = p->next; q != NULL; q = q->next) {
       if (isYoung(q, p)) {
         strcpy(temp_name, p->name);

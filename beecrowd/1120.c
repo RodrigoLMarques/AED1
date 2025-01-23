@@ -2,7 +2,7 @@
   Nome: Rodrigo Lopes Marques
   Matrícula: 180385
   Exercício: 1120 - Revisão de Contrato
-  Observações: Usando Heap Max
+  Observações: 
 */
 
 #include <stdio.h>
