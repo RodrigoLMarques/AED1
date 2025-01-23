@@ -9,13 +9,12 @@ int RandomInteger(int low, int high){
 }
 
 void bubbleSort (int v[tam]) {
-  int a, b, aux;
-  for (a=tam-1; a>0; a--) {
-    for (b=0; b<a; b++) {
-      if (v[b]>v[b+1]) {
-        aux = v[b];
-        v[b] = v[b+1];
-        v[b+1] = aux;
+  for (int a = tam - 1; a > 0; a--) {
+    for (int b = 0; b < a; b++) {
+      if (v[b] > v[b + 1]) {
+        int aux = v[b];
+        v[b] = v[b + 1];
+        v[b + 1] = aux;
       }
     }
   }

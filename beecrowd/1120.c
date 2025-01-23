@@ -2,7 +2,7 @@
   Nome: Rodrigo Lopes Marques
   Matrícula: 180385
   Exercício: 1120 - Revisão de Contrato
-  Observações: 
+  Observações: Apenas manipulação de string
 */
 
 #include <stdio.h>
@@ -11,21 +11,21 @@
 #define MAX 10100
 
 int main() {
-  char digit, strNumber[MAX];
+  char digit, str_number[MAX];
   
   while (1) {
-    scanf("%c %s", &digit, strNumber);
+    scanf("%c %s", &digit, str_number);
     getchar();
 
-    if (digit == '0' && strcmp(strNumber, "0") == 0) {
+    if (digit == '0' && strcmp(str_number, "0") == 0) {
       break;
     }
     
     char result[MAX];
     int index = 0;
-    for (size_t i = 0; i < strlen(strNumber); i++) {
-      if (strNumber[i] != digit) {
-        result[index++] = strNumber[i];
+    for (size_t i = 0; i < strlen(str_number); i++) {
+      if (str_number[i] != digit) {
+        result[index++] = str_number[i];
       }
     }
     result[index] = '\0';
