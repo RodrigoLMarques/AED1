@@ -2,7 +2,7 @@
   Nome: Rodrigo Lopes Marques
   Matrícula: 180385
   Exercício: 1244 - Ordenação por Tamanho
-  Observações: Listas e Bubble Sort
+  Observações: Listas
 */
 
 #include <stdio.h>
@@ -36,7 +36,6 @@ int main() {
     str[strcspn(str, "\n")] = 0;
 
     string_process(str, result);
-
     last = insert(result, last);
   }
 
@@ -49,15 +48,14 @@ List* insert(char* word, List* last) {
   List* new_cell = (List*)malloc(sizeof(List));
   strcpy(new_cell->word, word);
   new_cell->next = NULL;
-  if (last != NULL) {
-    last->next = new_cell;
-  }
+  last->next = new_cell;
   return new_cell;
 }
 
 void print_list(List* head) {
-  for (List* p = head; p != NULL; p = p->next)
-    printf("%s\n", p->word);
+  for (List* item = head->next; item != NULL; item = item->next) {
+    printf("%s\n", item->word);
+  }
 }
 
 void free_list(List* list) {
