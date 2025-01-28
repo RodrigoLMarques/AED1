@@ -7,7 +7,7 @@
 
 #include <stdio.h>
 
-int separa(int p, int r, int v[]);
+int separate(int p, int r, int v[]);
 void quicksort(int p, int r, int v[]);
 void print_array(int n, int v[]);
 
@@ -43,7 +43,7 @@ void print_array(int n, int v[]) {
   }
 }
 
-int separa(int p, int r, int v[]) {
+int separate(int p, int r, int v[]) {
   int c, j, k, t;
   c = v[r]; j = p;
   for (k = p; k < r; k++) {
@@ -59,7 +59,7 @@ int separa(int p, int r, int v[]) {
 void quicksort(int p, int r, int v[]) {
   int j;
   if (p < r) {
-    j = separa(p, r, v);
+    j = separate(p, r, v);
     quicksort(p, j - 1, v);
     quicksort(j + 1, r, v);
   }
