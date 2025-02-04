@@ -4,124 +4,105 @@
   Exercício: 1766 - O Elfo das Trevas
   Observações:
 */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX 100
+const int MAX_NAME_LENGTH = 101;
 
 typedef struct TList {
-  char name[100];
-  int order;
+  char *name;
+  int weight;
+  int age;
+  double height;
   struct TList *next;
 } List;
 
-List* insert(char* name, int order, List *last);
-int is_repeated(List *head, char *name);
-void sort(List* head);
-char* find_winner_name(List* head);
-void print_list(List *list);
+void insert(char *name, int weight, int age, double height, List **head, List **tail);
+void sort(List *lst);
+void print_list(List *first, int M, int scenario);
 
 int main() {
-  char name[100], is_friend[4]; 
-  int order = 0;
+  List *head, *tail;
+  head = tail = NULL;
 
-  List *friend_list = (List*) malloc(sizeof(List));
-  List *last_friend = friend_list;
+  int T, weight, age, N, M;
+  char name[MAX_NAME_LENGTH];
+  double height;
 
-  List *not_friend_list = (List*) malloc(sizeof(List));
-  List *last_not_friend = not_friend_list;
+  scanf("%d", &T);
+  for (int scenario = 1; scenario <= T; scenario++) {
+    scanf("%d %d", &N, &M);
 
-  scanf("%s", name);
-  while (strcmp(name, "FIM") != 0) {
-    scanf("%s", is_friend);
-
-    if (strcmp(is_friend, "YES") == 0) {
-      if (!is_repeated(friend_list, name))
-        last_friend = insert(name, order++, last_friend);
-    } else {
-      last_not_friend = insert(name, 0, last_not_friend);
+    for (int i = 0; i < N; i++) {
+      scanf("%s %d %d %lf", name, &weight, &age, &height);
+      insert(name, weight, age, height, &head, &tail);
     }
 
-    scanf("%s", name);
+    sort(head);
+
+    print_list(head, M, scenario);
+    head = tail = NULL;
   }
-
-  sort(friend_list);
-  sort(not_friend_list);
-  print_list(friend_list);
-  print_list(not_friend_list);
-
-  char* winner_name = find_winner_name(friend_list);
-
-  printf("\nAmigo do Habay:\n%s\n", winner_name);
 
   return 0;
 }
 
-List* insert(char* name, int order, List *last) {
-  List *new_cell;
-  new_cell = (List*) malloc(sizeof(List));
-  strcpy(new_cell->name, name);
-  new_cell->order = order;
-  last->next = new_cell;
-  return new_cell;
-}
+void insert(char *name, int weight, int age, double height, List **head, List **tail) {
+  List *newCell = (List *)malloc(sizeof(List));
+  newCell->name = (char *)malloc(MAX_NAME_LENGTH * sizeof(char));
+  strcpy(newCell->name, name);
+  newCell->weight = weight;
+  newCell->age = age;
+  newCell->height = height;
+  newCell->next = NULL;
 
-int is_repeated(List *head, char *name) {
-  for (List *p = head->next; p != NULL; p = p->next) {
-    if (strcmp(p->name, name) == 0) {
-      return 1;
-    }
+  if (*tail == NULL) {
+    *head = *tail = newCell;
+  } else {
+    (*tail)->next = newCell;
+    *tail = newCell;
   }
-  return 0;
 }
 
-int should_swap(List *p, List *q) {
-    return strlen(p->name) < strlen(q->name) || 
-           (strlen(p->name) == strlen(q->name) && p->order > q->order);
-}
+void sort(List *lst) {
+  List *p, *q;
+  char tempName[MAX_NAME_LENGTH];
+  int tempWeight, tempAge;
+  double tempHeight;
 
-char* find_winner_name(List* head) {
-  char temp_name[MAX];
-  int temp_order;
+  for (p = lst; p != NULL; p = p->next) {
+    for (q = p->next; q != NULL; q = q->next) {
+      if (
+        (p->weight < q->weight) || 
+        (p->weight == q->weight && p->age > q->age) ||
+        (p->weight == q->weight && p->age == q->age && p->height > q->height) ||
+        (p->weight == q->weight && p->age == q->age && p->height == q->height && strcmp(p->name, q->name) > 0)
+      ) {
+        strcpy(tempName, p->name);
+        tempWeight = p->weight;
+        tempAge = p->age;
+        tempHeight = p->height;
 
-  for (List* p = head->next; p != NULL; p = p->next) {
-    for (List* q = p->next; q != NULL; q = q->next) {
-      if (should_swap(p, q)) {
-        strcpy(temp_name, p->name);
         strcpy(p->name, q->name);
-        strcpy(q->name, temp_name);
-        temp_order = p->order;
-        p->order = q->order;
-        q->order = temp_order;
-      }
-    }
-  }
+        p->weight = q->weight;
+        p->age = q->age;
+        p->height = q->height;
 
-  return head->next->name;
-}
-
-void sort(List* head) {
-  char temp_name[MAX];
-  int temp_order;
-
-  for (List* p = head->next; p != NULL; p = p->next) {
-    for (List* q = p->next; q != NULL; q = q->next) {
-      if (strcmp(p->name, q->name) > 0) {
-        strcpy(temp_name, p->name);
-        strcpy(p->name, q->name);
-        strcpy(q->name, temp_name);
-        temp_order = p->order;
-        p->order = q->order;
-        q->order = temp_order;
+        strcpy(q->name, tempName);
+        q->weight = tempWeight;
+        q->age = tempAge;
+        q->height = tempHeight;
       }
     }
   }
 }
 
-void print_list(List *list) {
-  for (List *p = list->next; p != NULL; p = p->next) {
-    printf("%s\n", p->name);
+void print_list(List *first, int M, int scenario) {
+  List *p = first;
+  printf("CENARIO {%d}\n", scenario);
+  for (int i = 1; i <= M && p != NULL; i++) {
+    printf("%d - %s\n", i, p->name);
+    p = p->next;
   }
 }

@@ -5,94 +5,159 @@
   Observações:
 */
 
-// TODO
-
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
 
 typedef struct TList {
   int value;
-  struct TList *next;
+  struct TList* next;
 } List;
 
-void queuePush(List** list, int number);
-void stackPush(List **stack, int number);
-void heapPush(int v[], int m);
+typedef struct {
+  List* head;
+  List* tail;
+} HeadList;
+
+HeadList* create_head_list();
+void insert(HeadList* headList, int value);
+int remove_stack(HeadList* headList);
+int remove_queue(HeadList* headList);
+int remove_priority_queue(HeadList* headList);
+void free_list(List* head);
 
 int main() {
-  int n;
-
+  int n, command, x;
   while (scanf("%d", &n) != EOF) {
-    List* queue;
-    List* stack;
-    int heap[n];
+    HeadList* stack = create_head_list();
+    HeadList* queue = create_head_list();
+    HeadList* priorityQueue = create_head_list();
+
+    bool isStack = true;
+    bool isQueue = true;
+    bool isPriorityQueue = true;
 
     for (int i = 0; i < n; i++) {
-      int action, value;
-      scanf("%d %d", &action, &value);
+      scanf("%d", &command);
+      if (command == 1) {
+        scanf("%d", &x);
+        insert(stack, x);
+        insert(queue, x);
+        insert(priorityQueue, x);
+      } else if (command == 2) {
+        scanf("%d", &x);
+        int stackValue = remove_stack(stack);
+        int queueValue = remove_queue(queue);
+        int priorityQueueValue = remove_priority_queue(priorityQueue);
 
-      // Push
-      if (action == 1) {
-        queuePush(queue, value);
-        stackPush(stack, value);
-        heapPush(heap, value);
-
-      // Pop
-      } else if (action == 2) {
-
+        if (stackValue != x) isStack = false;
+        if (queueValue != x) isQueue = false;
+        if (priorityQueueValue != x) isPriorityQueue = false;
       }
     }
+
+    if ((isStack && isQueue) || (isStack && isPriorityQueue) || (isQueue && isPriorityQueue)) {
+      printf("not sure\n");
+    } else if (isStack) {
+      printf("stack\n");
+    } else if (isQueue) {
+      printf("queue\n");
+    } else if (isPriorityQueue) {
+      printf("priority queue\n");
+    } else {
+      printf("impossible\n");
+    }
+
+    free_list(stack->head);
+    free(stack);
+    free_list(queue->head);
+    free(queue);
+    free_list(priorityQueue->head);
+    free(priorityQueue);
+  }
+
+  return 0;
+}
+
+HeadList* create_head_list() {
+  HeadList* newHeadList = (HeadList*)malloc(sizeof(HeadList));
+  newHeadList->head = NULL;
+  newHeadList->tail = NULL;
+  return newHeadList;
+}
+
+void insert(HeadList* headList, int value) {
+  List* newList = (List*)malloc(sizeof(List));
+  newList->value = value;
+  newList->next = NULL;
+
+  if (headList->head == NULL) {
+    headList->head = newList;
+    headList->tail = newList;
+  } else {
+    headList->tail->next = newList;
+    headList->tail = newList;
   }
 }
 
-void queuePush(List** list, int number) {
-  List* newItem = (List*) malloc(sizeof(List));
-  newItem->next = NULL;
-  newItem->value = number;
-  (*list)->next = newItem;
-}
+int remove_stack(HeadList* headList) {
+  if (headList->head == NULL) return -1;
 
-void queuePop(List *p) {
-  List *temp  = p->next;
-  p->next = temp->next;
+  List* temp = headList->head;
+  int value = temp->value;
+  headList->head = headList->head->next;
   free(temp);
-}
 
-void stackPush(List **stack, int number) {
-  List *newItem = (List*) malloc(sizeof(List));
-  newItem->value = number;
-  newItem->next = *stack;
-  *stack = newItem;
-}
+  if (headList->head == NULL) {
+    headList->tail = NULL;
+  }
 
-int stackPop(List **stack) {
-  if (*stack == NULL) return -1;
-  List *temp = *stack;
-  char value = temp->value;
-  *stack = temp->next;
-  free(temp);
   return value;
 }
 
-void heapPush(int v[], int m) {
-  int f = m + 1;
-  while (f > 1 && v[f /2] < v[f ]) {
-    int t = v[f /2]; 
-    v[f /2] = v[f ]; 
-    v[f] = t;
-    f = f /2;
-  }
+int remove_queue(HeadList* headList) {
+  return remove_stack(headList);
 }
 
-int heapPop(int v[]) {
-  int t, f = 2, m = v[0];
-  while (f <= m) {
-    if (f < m && v[f] < v[f + 1]) ++f;
-    if (v[f/2] >= v[f]) break;
-    t = v[f /2]; 
-    v[f /2] = v[f ]; 
-    v[f ] = t;
-    f *= 2;
+int remove_priority_queue(HeadList* headList) {
+  if (headList->head == NULL) return -1;
+
+  List* prev = NULL;
+  List* current = headList->head;
+  List* maxPrev = NULL;
+  List* maxNode = headList->head;
+  int maxValue = current->value;
+
+  while (current != NULL) {
+    if (current->value > maxValue) {
+      maxValue = current->value;
+      maxNode = current;
+      maxPrev = prev;
+    }
+    prev = current;
+    current = current->next;
   }
-  return m;
+
+  if (maxPrev == NULL) {
+    headList->head = headList->head->next;
+  } else {
+    maxPrev->next = maxNode->next;
+  }
+
+  if (maxNode == headList->tail) {
+    headList->tail = maxPrev;
+  }
+
+  int value = maxNode->value;
+  free(maxNode);
+  return value;
+}
+
+void free_list(List* head) {
+  List* temp;
+  while (head != NULL) {
+    temp = head;
+    head = head->next;
+    free(temp);
+  }
 }
