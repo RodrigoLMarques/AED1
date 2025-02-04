@@ -1,3 +1,10 @@
+/* 
+  Nome: Rodrigo Lopes Marques
+  Matrícula: 180385
+  Exercício: 1874 - Empurrando Blocos
+  Observações: User o conceito de pilhas, mas não usei struct nesse
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 

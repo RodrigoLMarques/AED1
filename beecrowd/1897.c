@@ -1,3 +1,10 @@
+/* 
+  Nome: Rodrigo Lopes Marques
+  Matrícula: 180385
+  Exercício: 1897 - Jogo Esperto
+  Observações:
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 

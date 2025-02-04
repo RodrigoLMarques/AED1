@@ -1,3 +1,10 @@
+/* 
+  Nome: Rodrigo Lopes Marques
+  Matrícula: 180385
+  Exercício: 1861 - O Hall dos Assassinos
+  Observações:
+*/
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>

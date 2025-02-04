@@ -52,7 +52,7 @@ List* insert(char* name, int age, List** last) {
   return new_cell;
 }
 
-int isYoung(List* a, List*b) {
+int is_young(List* a, List*b) {
   if ((a->age > b->age)) return 1;
   if ((a->age == b->age && strcmp(a->name, b->name) < 0)) return 1;
   return 0;
@@ -64,7 +64,7 @@ void sort(List *head) {
 
   for (List* p = head->next; p != NULL; p = p->next) {
     for (List* q = p->next; q != NULL; q = q->next) {
-      if (isYoung(q, p)) {
+      if (is_young(q, p)) {
         strcpy(temp_name, p->name);
         strcpy(p->name, q->name);
         strcpy(q->name, temp_name);

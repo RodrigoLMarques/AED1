@@ -1,3 +1,10 @@
+/* 
+  Nome: Rodrigo Lopes Marques
+  Matrícula: 180385
+  Exercício: 1548 - Fila do Recreio
+  Observações:
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

@@ -1,6 +1,13 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
+/* 
+  Nome: Rodrigo Lopes Marques
+  Matrícula: 180385
+  Exercício: 1332 - Um-Dois-Três
+  Observações:
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #define MAX 51
 

@@ -1,3 +1,10 @@
+/* 
+  Nome: Rodrigo Lopes Marques
+  Matrícula: 180385
+  Exercício: 2693 - Van
+  Observações:
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

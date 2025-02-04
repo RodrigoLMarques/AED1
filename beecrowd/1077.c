@@ -1,10 +1,10 @@
-// TODO
-
 /* 
   Nome: Rodrigo Lopes Marques
   Matrícula: 180385
   Exercício: 1077 - 
 */
+
+// TODO
 
 #include <stdio.h>
 #include <string.h>

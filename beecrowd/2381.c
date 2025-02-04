@@ -2,6 +2,7 @@
   Nome: Rodrigo Lopes Marques
   Matrícula: 180385
   Exercício: 2381 - Lista de Chamada
+  Observações:
 */
 
 #include <stdio.h>

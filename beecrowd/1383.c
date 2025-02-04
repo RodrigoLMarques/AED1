@@ -2,6 +2,7 @@
   Nome: Rodrigo Lopes Marques
   Matrícula: 180385
   Exercício: 1383 - Sudoku
+  Observações: 
 */
 
 #include <stdio.h>

@@ -1,3 +1,10 @@
+/* 
+  Nome: Rodrigo Lopes Marques
+  Matrícula: 180385
+  Exercício: 1340 - Eu Posso Adivinhar a Estrutura de Dados!
+  Observações:
+*/
+
 // TODO
 
 #include <stdlib.h>

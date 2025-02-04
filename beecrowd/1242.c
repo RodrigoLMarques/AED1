@@ -1,3 +1,10 @@
+/* 
+  Nome: Rodrigo Lopes Marques
+  Matrícula: 180385
+  Exercício: 1242 - Ácido Ribonucleico Alienígena
+  Observações:
+*/
+
 // TODO
 
 #include <stdio.h>
