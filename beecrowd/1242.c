@@ -5,24 +5,43 @@
   Observações:
 */
 
-// TODO
-
 #include <stdio.h>
 #include <string.h>
 
+#define MAX 301
+
+int maxPairs(char *str);
+
 int main() {
-  char str[301];
+  char str[MAX];
   while (scanf("%s", str) != EOF) {
-    int b = 0, c = 0, f = 0, s = 0;
-    for (int i = 0; i < strlen(str); i++) {
-      if (str[i] == 'B') b++;
-      if (str[i] == 'C') c++;
-      if (str[i] == 'F') f++;
-      if (str[i] == 'S') s++;
-    }
-    int n1 = b < s ? b : s;
-    int n2 = c < f ? c : f;
-    int total = n1 + n2;
-    printf("%d\n", total);
+    int result = maxPairs(str);
+    printf("%d\n", result);
   }
+  return 0;
+}
+
+int maxPairs(char *str) {
+  int len = strlen(str);
+  int stack[MAX];
+  int top = -1;
+  int pairs = 0;
+
+  for (int i = 0; i < len; i++) {
+    if (top >= 0) {
+      if ((str[i] == 'B' && stack[top] == 'S') || (str[i] == 'S' && stack[top] == 'B')) {
+        pairs++;
+        top--;
+      } else if ((str[i] == 'C' && stack[top] == 'F') || (str[i] == 'F' && stack[top] == 'C')) {
+        pairs++;
+        top--;
+      } else {
+        stack[++top] = str[i];
+      }
+    } else {
+      stack[++top] = str[i];
+    }
+  }
+
+  return pairs;
 }
