@@ -10,18 +10,18 @@
 
 #define MAX 301
 
-int maxPairs(char *str);
+int max_pairs(char *str);
 
 int main() {
   char str[MAX];
   while (scanf("%s", str) != EOF) {
-    int result = maxPairs(str);
+    int result = max_pairs(str);
     printf("%d\n", result);
   }
   return 0;
 }
 
-int maxPairs(char *str) {
+int max_pairs(char *str) {
   int len = strlen(str);
   int stack[MAX];
   int top = -1;
